@@ -1,0 +1,60 @@
+.user-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  background-color: rgb(237, 230, 230);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.user-name {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.inputs-btn {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+
+.contacts-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: rgb(48, 218, 22);
+}
+
+.contacts-header {
+  font-size: 15px;
+}
+
+.list {
+  display: flex;
+  width: 925px;
+  justify-content: space-between;
+  margin-left: 0; /* Отступ слева в браузере IE и Opera */
+  padding-left: 0;
+}
+
+.list-item {
+  width: 160px;
+  margin-bottom: 10px;
+}
+
+.back {
+  background-color: cadetblue;
+}
+
+.logout {
+  width: 100px;
+  background-color: chartreuse;
+  text-decoration: none;
+  font-size: 15px;
+  border: 2px solid black;
+  border-radius: 4px;
+  text-align: center;
+}

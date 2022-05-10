@@ -1,0 +1,86 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "raptor",
+      "name": "Sergey",
+      "password": "123",
+      "contacts": [
+        {
+          "firstName": "Ivanov",
+          "lastName": "Petr",
+          "phoneNumber": "8-911-911-11-11",
+          "adress": "New York"
+        },
+        {
+          "firstName": "Petrov",
+          "lastName": "Petr",
+          "phoneNumber": "8-911-911-11-12",
+          "adress": "Chicago"
+        },
+        {
+          "firstName": "Sidirov",
+          "lastName": "Sidr",
+          "phoneNumber": "8-911-911-11-13",
+          "adress": "Bronks"
+        },
+        {
+          "firstName": "Smirnov",
+          "lastName": "Smirn",
+          "phoneNumber": "8-911-911-11-13",
+          "adress": "Sidney"
+        },
+        {
+          "firstName": "Golovchenko",
+          "lastName": "Alex",
+          "phoneNumber": "8-911-911-11-13",
+          "adress": "Sidney"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "login": "raptor2s",
+      "name": "Sergey",
+      "password": "123",
+      "contacts": [
+        {
+          "firstName": "family1",
+          "lastName": "name1",
+          "phoneNumber": "11111",
+          "adress": "11111"
+        },
+        {
+          "firstName": "family1",
+          "lastName": "name1",
+          "phoneNumber": "11111",
+          "adress": "11111"
+        },
+        {
+          "firstName": "family1",
+          "lastName": "name1",
+          "phoneNumber": "11111",
+          "adress": "11111"
+        },
+        {
+          "firstName": "family1",
+          "lastName": "name1",
+          "phoneNumber": "11111",
+          "adress": "11111"
+        },
+        {
+          "firstName": "family1",
+          "lastName": "name1",
+          "phoneNumber": "11111",
+          "adress": "11111"
+        },
+        {
+          "firstName": "family1",
+          "lastName": "name1",
+          "phoneNumber": "11111",
+          "adress": "11111"
+        }
+      ]
+    }
+  ]
+}
