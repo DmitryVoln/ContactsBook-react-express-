@@ -1,6 +1,8 @@
 import { AppDispatch } from "redux/store";
 import { contactsSlice } from "./contactsSlice";
-import { Contact } from "interfaces/contacts";
+import { authSlice } from "./authSlice";
+import { User } from "interfaces/user";
+import { AuthData } from "interfaces/auth";
 
 export const requestContacts = (userId: number) => async (dispatch: AppDispatch) => {
   try {
@@ -22,35 +24,45 @@ export const requestContacts = (userId: number) => async (dispatch: AppDispatch)
   }
 };
 
-export const requestAddContact = (payload: Contact, userId: number) => async (dispatch: AppDispatch) => {
+export const requestAddContact = (payload: User) => async (dispatch: AppDispatch) => {
   try {
-    dispatch(contactsSlice.actions.contactsFetching());
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    dispatch(contactsSlice.actions.contactsAdding());
+    const response = await fetch(`http://localhost:3001/users/${payload.id}`, {
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
           },
-          method: 'POST',
+          method: 'PUT',
+          body: JSON.stringify(payload),
     });
     const responseJSON = await response.json();
-    dispatch(contactsSlice.actions.contactsFetchingSuccess(responseJSON))
+    dispatch(contactsSlice.actions.contactsAddingSuccess(responseJSON))
   } catch (error) {
       if (error instanceof Error) {
-        dispatch(contactsSlice.actions.contactsFetchingError(error.message))
+        dispatch(contactsSlice.actions.contactsAddingError(error.message))
         return;
       }
       console.log(error);
   }
 };
 
-// export const requestAddEditedCity = createAsyncThunk(
-//   'locationCity/update',
-//   async (payload: ILocationCityData, thunkApi) => {
-//     await makeRequest(thunkApi.dispatch, `${BASE_URL}/location/city/${payload.id}?lang=ru`, {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(payload),
-//     });
-//   },
-// );
+export const requestCheckAuth = (payload: AuthData) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(authSlice.actions.authFetching());
+    const response = await fetch(`http://localhost:3001/auth`, {
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+          method: 'POST',
+          body: JSON.stringify(payload),
+    });
+    const responseJSON = await response.json();
+    console.log(responseJSON);
+    dispatch(authSlice.actions.authFetchingSuccess(responseJSON))
+  } catch (error) {
+      if (error instanceof Error) {
+        dispatch(authSlice.actions.authFetchingError(error.message))
+        return;
+      }
+      console.log(error);
+  }
+};

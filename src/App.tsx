@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { requestContacts } from "redux/reducers/ActionCreators";
-import { Login } from "./components/Login/Login";
-import { UserContacts } from "./components/UserContacts/UserContacts";
+import Login from "./pages/login/login";
+import { UserContacts } from "./pages/userContacts/userContacts";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
+import { APP_TOKEN } from "constants/authConstants";
+import PrivateRoute from "components/PrivateRoure";
 
-function App() {
-  const [isAuthed, setIsAuthed] = useState(false);
-  const handleLogin = () => { 
-    setIsAuthed((isAuthed) => !isAuthed);
-  };
+const App = () => {
+  const { authData } = useAppSelector((state) => state.authReducer);
 
-  const handleLogout = () => {
-    console.log(isAuthed);
-    setIsAuthed((p) => !p);
-  }
+  useEffect(() => {
+    localStorage.setItem(APP_TOKEN, authData.token);
+  }, [authData]);
+
   return (
     <Routes>
       <Route
         path="/"
         element={
-          isAuthed ? (
+          authData.token ? (
             <Navigate to="/contacts" />
           ) : (
-            <Login onClick={handleLogin} />
+            <Login />
           )
         }
       />
-      <Route path="/contacts" element={<UserContacts handleLogout={handleLogout} />} />
+      {/* <PrivateRoute> */}
+      <Route path="/contacts" element={<UserContacts userId={authData.userId} />} />
+      {/* </PrivateRoute> */}
     </Routes>
   );
-}
+};
 
 export default App;

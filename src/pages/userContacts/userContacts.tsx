@@ -1,19 +1,25 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Formik, FormikFormProps, FormikProps, FormikValues } from "formik";
 import * as Yup from "yup";
 import { UserContactsComponent } from "../../interfaces/userContactsComponent";
-import { Input } from "components/Input/Input";
-import { Button } from "components/Button/Button";
+import Input from "../../components/input/input";
+import Button from "components/button/button";
 import { Contact } from "interfaces/contacts";
 import classNames from "classnames/bind";
-import styles from "./UserContacts.module.scss";
-import { requestContacts } from "redux/reducers/ActionCreators";
+import styles from "./userContacts.module.scss";
+import {
+  requestAddContact,
+  requestContacts,
+} from "redux/reducers/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { authSlice, logout } from "redux/reducers/authSlice";
+
+import { APP_TOKEN } from "constants/authConstants";
 
 const cx = classNames.bind(styles);
 
-export const UserContacts = ({ handleLogout }: UserContactsComponent) => {
+export const UserContacts = ({ userId }: UserContactsComponent) => {
   const yupschema = Yup.object().shape({
     firstName: Yup.string()
       .matches(
@@ -36,24 +42,28 @@ export const UserContacts = ({ handleLogout }: UserContactsComponent) => {
       .max(125),
   });
 
-  const { user } = useAppSelector( state =>state.userReducer)
+  const { user } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
-  useEffect( () => {
-    dispatch(requestContacts(1));
-    console.log(user)
+  useEffect(() => {
+    console.log(userId);
+    dispatch(requestContacts(userId));
   }, []);
 
-  const addContact = (values: FormikValues) => {
-    const payload = { 
+  const addContact = async (values: FormikValues) => {
+    const payload: Contact = {
       firstName: values.firstName,
       lastName: values.lastName,
       phoneNumber: values.phoneNumber,
-      adress: values.adress
-    }
-    const userId = user.id
-    // await dispatch(requestAddEditedCity(payload, userId));
-//   await dispatch(requestLocationCity());
+      adress: values.adress,
+    };
+    const contacts = [...user.contacts, payload];
+    await dispatch(requestAddContact({ ...user, contacts }));
+    await dispatch(requestContacts(1));
+  };
 
+  const handleLogout = (): void => {
+    localStorage.removeItem(APP_TOKEN);
+    dispatch(logout());
   };
 
   return (
@@ -81,72 +91,46 @@ export const UserContacts = ({ handleLogout }: UserContactsComponent) => {
               <Input
                 placeholder="Фамилия"
                 inputValue={values.firstName}
-                inputHandler={(value) => {
+                onChange={(value) => {
                   setFieldValue("firstName", value);
                 }}
               />
               <Input
                 placeholder="Имя"
                 inputValue={values.lastName}
-                inputHandler={(value) => {
+                onChange={(value) => {
                   setFieldValue("lastName", value);
                 }}
               />
               <Input
                 placeholder="номер телефона"
                 inputValue={values.phoneNumber}
-                inputHandler={(value) => {
+                onChange={(value) => {
                   setFieldValue("phoneNumber", value);
                 }}
               />
               <Input
                 placeholder="Адрес"
                 inputValue={values.adress}
-                inputHandler={(value) => {
+                onChange={(value) => {
                   setFieldValue("adress", value);
                 }}
               />
-              <Button name={"Сохранить контакт"} addContact={handleSubmit} />
+              <Button children={"Сохранить контакт"} onClick={handleSubmit} />
             </div>
           );
         }}
       </Formik>
       <div className={cx("contacts-list")}>
-          {user.contacts.map((item: Contact, index) => (
-            <div className={cx("list", {back: index % 2 === 0})} key={index}>
-              <div className={cx("list-item")}>{item.firstName}</div>
-              <div className={cx("list-item")}>{item.lastName}</div>
-              <div className={cx("list-item")}>{item.phoneNumber}</div>
-              <div className={cx("list-item")}>{item.adress}</div>
-            </div>
-          ))}
+        {user.contacts.map((item: Contact, index) => (
+          <div className={cx("list", { back: index % 2 === 0 })} key={index}>
+            <div className={cx("list-item")}>{item.firstName}</div>
+            <div className={cx("list-item")}>{item.lastName}</div>
+            <div className={cx("list-item")}>{item.phoneNumber}</div>
+            <div className={cx("list-item")}>{item.adress}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
-
-// className={cx('list__manager__right__sort__btn', {
-//   activePageBtn: countItemsOnPage === countItems,
-// })}
-
-// const addEditedCity = async () => {
-//   if (countryId === currentId && initCity === textCity) {
-//     setEditCity(false);
-//     return;
-//   }
-//   setTextCity('');
-//   setEditCity(false);
-//   if (currentId && currentCityId) {
-//     const payload = {
-//       id: currentCityId,
-//       postIndex: null,
-//       countryId: currentId,
-//       countryName: countryInModalWindow,
-//       cityName: textCity.trim(),
-//       visibility: true,
-//     };
-//     await dispatch(requestAddEditedCity(payload));
-//   }
-
-//   await dispatch(requestLocationCity());
-// };

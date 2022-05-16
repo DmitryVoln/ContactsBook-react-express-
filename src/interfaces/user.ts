@@ -1,9 +1,8 @@
+import { AuthData } from "./auth";
 import { Contact } from "./contacts";
 
-export interface User {
-  id?: number;
-  login: string;
+export interface User extends AuthData {
+  id: number;
   name: string;
-  password: string;
   contacts: Contact[];
 }

@@ -1,4 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+    }
+
 .input {
-    background-color: bisque;
-    border: 1px solid rgb(16, 8, 73);
+  background-color: bisque;
+  border: 1px solid rgb(16, 8, 73);
+  border-radius: 4px;
+  width: 200px;
+  height: 30px;
 }

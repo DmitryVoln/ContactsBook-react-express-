@@ -1,4 +1,11 @@
 .btn {
-    background-color: bisque;
+    background-color: rgb(86, 77, 244);
     border: 1px solid rgb(16, 8, 73);
+    border-radius: 4px;
+    width: 200px;
+    height: 35px;
+    &:hover {
+        cursor: pointer;
+        filter: brightness(1.5);
+    }
 }

@@ -1,0 +1,35 @@
+.container {
+  margin: auto;
+  max-width: 1140px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(212, 250, 239);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 150px;
+}
+
+
+// .auth {
+//     background: #1e66be;
+//     display: flex;
+//   }
+  
+  
+  
+//   input[type='password'] {
+//     margin: auto;
+//     border: 2px solid;
+//     background-color: #888D92;
+
+//   }
+  
+// .btn {
+//     background-color: #bff316;
+// }

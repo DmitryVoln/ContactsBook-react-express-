@@ -3,7 +3,7 @@ import { User } from "interfaces/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: ContactsState = {
-    user: {login: '', name: '', password: '', contacts: []},
+    user: {id: NaN, login: '', name: '', password: '', contacts: []},
     isLoadind: false,
     error: ''
 }
