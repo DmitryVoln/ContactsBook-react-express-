@@ -10,10 +10,11 @@ export interface IInput {
     | "reset"
     | "submit"
     | "text";
+  placeholder: string;
+  inputValue: string;
   label?: string;
   isInvalid?: boolean;
   errorMessage?: string | boolean;
-  placeholder: string;
-  inputValue: string;
   onChange(event: string): void;
+  checked?: boolean;
 }

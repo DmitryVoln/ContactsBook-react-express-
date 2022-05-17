@@ -1,22 +1,16 @@
-import React, { useEffect, FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./login.module.scss";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppDispatch } from "../../hooks/redux";
 import { requestCheckAuth } from "redux/reducers/actionCreators";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
-import e from "express";
-
-interface Login {
-  onClick(): void;
-}
 
 const cx = classNames.bind(styles);
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [login, setLogin] = useState("");
-  const { authData } = useAppSelector((state) => state.authReducer);
 
   const dispatch = useAppDispatch();
 
@@ -47,7 +41,7 @@ const Login = () => {
             inputValue={password}
             onChange={setPassword}
           />
-          <Button type="submit" className={cx("btn")} children={"LogIn"} />
+          <Button type="submit" className={'login'} children={"LogIn"} />
         </div>
       </form>
     </div>

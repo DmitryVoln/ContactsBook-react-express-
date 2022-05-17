@@ -1,20 +1,14 @@
 import React from "react";
-import { Navigate, Route, RouteProps } from "react-router";
-import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router";
 import { APP_TOKEN } from "constants/authConstants";
 
-interface IProps extends RouteProps {
-  children: React.ReactElement;
-  [key: string]: any;
-}
 
-const PrivateRoute = ({ children, ...rest }: IProps) => {
+const PrivateRoute = () => {
   const isAuthed = localStorage.getItem(APP_TOKEN);
-
   return isAuthed ? (
-    <Route {...rest}>{children}</Route>
+   <Outlet />
   ) : (
-    <Navigate to="/login" />
+    <Navigate to="/" />
   );
 };
 

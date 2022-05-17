@@ -17,8 +17,7 @@ function Button({
     <button
       {...rest}
       onClick={onClick}
-      className={cx('btn', `${className}`)}
-      // eslint-disable-next-line react/button-has-type
+      className={cx(`${className}`)}
       type={type}
       disabled={disabled}
     >
@@ -32,6 +31,7 @@ Button.defaultProps = {
   disabled: false,
   className: '',
   onClick: () => {},
+  children: []
 };
 
 export default Button;

@@ -25,6 +25,7 @@
     "react-scripts": "5.0.1",
     "router-dom": "^2.2.9",
     "sass": "^1.51.0",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
@@ -58,6 +59,7 @@
   "devDependencies": {
     "@types/json-server": "^0.14.4",
     "@types/jsonwebtoken": "^8.5.8",
+    "@types/uuid": "^8.3.4",
     "concurrently": "^7.1.0",
     "json-server": "^0.17.0",
     "nodemon": "^2.0.16",

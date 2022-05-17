@@ -2,6 +2,7 @@
   max-width: 1140px;
   margin: 0 auto;
   background-color: rgb(237, 230, 230);
+  padding: 0 5px 0 5px;
 }
 
 .header {
@@ -15,11 +16,11 @@
   margin-bottom: 20px;
 }
 
-.inputs-btn {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 100px;
-}
+// .inputs-btn {
+//   display: flex;
+//   justify-content: space-between;
+//   margin-bottom: 100px;
+// }
 
 .contacts-block {
   display: flex;
@@ -34,15 +35,23 @@
 
 .list {
   display: flex;
-  width: 925px;
+  height: 30px;
   justify-content: space-between;
-  margin-left: 0; /* Отступ слева в браузере IE и Opera */
-  padding-left: 0;
+  margin-left: 0;
+  padding: 0;
+  align-items: center;
+
 }
 
 .list-item {
   width: 160px;
   margin-bottom: 10px;
+}
+
+.list-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
 }
 
 .back {
@@ -57,4 +66,9 @@
   border: 2px solid black;
   border-radius: 4px;
   text-align: center;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
 }

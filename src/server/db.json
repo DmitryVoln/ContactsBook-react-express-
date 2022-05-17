@@ -7,58 +7,25 @@
       "password": "123",
       "contacts": [
         {
-          "firstName": "Ivanov",
-          "lastName": "Petr",
-          "phoneNumber": "8-911-911-11-11",
-          "adress": "New York"
-        },
-        {
-          "firstName": "Petrov",
-          "lastName": "Petr",
-          "phoneNumber": "8-911-911-11-12",
-          "adress": "Chicago"
-        },
-        {
-          "firstName": "Sidirov",
-          "lastName": "Sidr",
-          "phoneNumber": "8-911-911-11-13",
-          "adress": "Bronks"
-        },
-        {
-          "firstName": "Smirnov",
-          "lastName": "Smirn",
-          "phoneNumber": "8-911-911-11-13",
-          "adress": "Sidney"
-        },
-        {
-          "firstName": "Golovchenko",
-          "lastName": "Alex",
-          "phoneNumber": "8-911-911-11-13",
-          "adress": "Sidney"
-        },
-        {
-          "firstName": "Evgenchenko",
-          "lastName": "Gersa",
-          "phoneNumber": "8-911-911-11-14",
-          "adress": "Paris"
-        },
-        {
-          "firstName": "werwew",
-          "lastName": "erwe",
-          "phoneNumber": "",
+          "id": "7b62040a-7efc-4d68-be98-06d2d0dca869",
+          "firstName": "qwq",
+          "lastName": "qwqw",
+          "phoneNumber": "+79213333333",
           "adress": ""
         },
         {
-          "firstName": "werwew",
-          "lastName": "erwe",
-          "phoneNumber": "123123",
-          "adress": "sdfsd"
+          "id": "c47aa21e-a8c9-4e22-8ecc-b13cc2e7e664",
+          "firstName": "qwq",
+          "lastName": "qwqw",
+          "phoneNumber": "+79213333333",
+          "adress": ""
         },
         {
-          "firstName": "reter",
-          "lastName": "erter",
-          "phoneNumber": "234234",
-          "adress": "fdgdfg"
+          "id": "9e756dad-0c65-4000-bb98-5dd2342904dd",
+          "firstName": "sdfsdf",
+          "lastName": "sdfds",
+          "phoneNumber": "+79213600000",
+          "adress": ""
         }
       ]
     },

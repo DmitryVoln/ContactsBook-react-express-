@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "./pages/login/login";
 import { UserContacts } from "./pages/userContacts/userContacts";
-import { useAppDispatch, useAppSelector } from "./hooks/redux";
+import { useAppSelector } from "./hooks/redux";
 import { APP_TOKEN } from "constants/authConstants";
 import PrivateRoute from "components/PrivateRoure";
 
@@ -25,9 +25,9 @@ const App = () => {
           )
         }
       />
-      {/* <PrivateRoute> */}
-      <Route path="/contacts" element={<UserContacts userId={authData.userId} />} />
-      {/* </PrivateRoute> */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/contacts" element={<UserContacts userId={authData.userId}/>} />
+        </Route>
     </Routes>
   );
 };
