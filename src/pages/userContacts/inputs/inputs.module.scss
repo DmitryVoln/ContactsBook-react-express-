@@ -1,0 +1,12 @@
+.inputs {
+  display: flex;
+  &-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+  }
+  &-column {
+    display: flex;
+    flex-direction: column;
+  }
+}

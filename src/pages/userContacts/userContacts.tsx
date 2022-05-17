@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Formik, FormikValues } from "formik";
-import * as Yup from "yup";
+
 import { v4 as uuidv4 } from "uuid";
 import { UserContactsComponent } from "../../interfaces/userContactsComponent";
 import Input from "../../components/input/input";
 import Button from "components/button/button";
 import ModalWindow from "components/modalWindow/modalWindow";
-import InputsFormik from "./inputsFormik/inputsFormik";
+import Inputs from "./inputs/inputs";
+import { IInputProp } from "./inputs/inputs";
 import { Contact } from "interfaces/contacts";
 import classNames from "classnames/bind";
 import styles from "./userContacts.module.scss";
@@ -24,38 +24,26 @@ const cx = classNames.bind(styles);
 
 export const UserContacts = ({ userId }: UserContactsComponent) => {
   const [listContacts, setListContacts] = useState<Contact[]>([]);
+  const [id, setId] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [adress, setAdress] = useState<string>("");
+  const [searchField, setSearchField] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  let checkedContactsIndex: number[] = [];
-
-  // const yupschema = Yup.object().shape({
-  //   firstName: Yup.string()
-  //     .matches(
-  //       /^[a-zA-Zа-яА-Я-\s"]+$/iu,
-  //       'В названии должны быть только буквы, символы: "-" "пробелы"'
-  //     )
-  //     .max(125)
-  //     .required("Введите фамилию"),
-  //   lastName: Yup.string()
-  //     .matches(
-  //       /^[a-zA-Zа-яА-Я-\s"]+$/iu,
-  //       'В названии должны быть только буквы, символы: "-" "пробелы"'
-  //     )
-  //     .max(125)
-  //     .required("Введите имя"),
-  //   phoneNumber: Yup.string()
-  //     .matches(
-  //       /^\+[0-9]+$/iu,
-  //       "введите номер цифрами в верном формате: х-ххх-ххх-хх-хх"
-  //     )
-  //     .required("Введите номер телефона"),
-  //   adress: Yup.string()
-  //     .matches(
-  //       /^[a-zA-Zа-яА-Я0-9-,."\s]+$/iu,
-  //       'В названии должны быть только буквы, цифры, символы: "-" "," "." "пробелы"'
-  //     )
-  //     .max(125),
-  // });
+  const stateSetter = (
+    payload: Contact | null,
+    isShowModalWindow: boolean
+  ): void => {
+    setId(payload?.id || "");
+    setFirstName(payload?.firstName || "");
+    setLastName(payload?.lastName || "");
+    setPhoneNumber(payload?.phoneNumber || "");
+    setAdress(payload?.adress || "");
+    setShowModal(isShowModalWindow);
+    return;
+  };
 
   const { user } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
@@ -63,25 +51,67 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
     dispatch(requestContacts(userId));
   }, [dispatch, userId]);
 
-  useEffect(() => {
-    setListContacts(user.contacts);
-  }, [user]);
-
-  const handleCheck = (event: React.MouseEvent) => {
-    checkedContactsIndex.push();
-    console.log(event.target);
-    console.log(event.currentTarget);
+  const filterFunc = ({
+    firstName,
+    lastName,
+    adress,
+    phoneNumber,
+  }: Contact) => {
+    if (firstName) {
+      if (firstName.toLowerCase().includes(searchField.toLowerCase()))
+        return true;
+    }
+    if (lastName) {
+      if (lastName.toLowerCase().includes(searchField.toLowerCase()))
+        return true;
+    }
+    if (adress) {
+      if (adress.toLowerCase().includes(searchField.toLowerCase())) return true;
+    }
+    if (phoneNumber) {
+      if (phoneNumber.includes(searchField)) return true;
+    }
+    return false;
   };
 
-  const addContact = async (values: FormikValues): Promise<void> => {
+  useEffect(() => {
+    console.log(user, 'here');
+    if (searchField) {
+      setListContacts(user.contacts.filter(filterFunc));
+    } else {
+      setListContacts(user.contacts);
+    }
+  }, [user, searchField]);
+
+  useEffect(() => {}, [showModal]);
+
+  const addContact = async (): Promise<void> => {
     const payload: Contact = {
-      id: uuidv4(),
-      firstName: values.firstName,
-      lastName: values.lastName,
-      phoneNumber: values.phoneNumber,
-      adress: values.adress,
+      id: String(Date.now()),
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: `+${phoneNumber}`,
+      adress: adress,
     };
     const contacts = [...user.contacts, payload];
+    stateSetter(null, false);
+    await dispatch(requestAddContact({ ...user, contacts }));
+    await dispatch(requestContacts(userId));
+  };
+
+  const addChangedContact = async (): Promise<void> => {
+    const payload: Contact = {
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: `+${phoneNumber}`,
+      adress: adress,
+    };
+    const contacts = [...user.contacts].map((contact) =>
+      contact.id === id ? payload : contact
+    );
+    setShowModal(false);
+    stateSetter(null, false);
     await dispatch(requestAddContact({ ...user, contacts }));
     await dispatch(requestContacts(userId));
   };
@@ -94,36 +124,88 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
     await dispatch(requestContacts(userId));
   };
 
-  const updateContact = async (payload: Contact, index: number) => {
-    setShowModal(true);
-
-    // await dispatch(requestAddContact({ ...user, contacts }));
-    // await dispatch(requestContacts(userId));
-  };
-
-  const closeUpdateContacts = () => {
-    setShowModal(false);
+  const openModalWindow = async (item: Contact, index: number) => {
+    stateSetter(item, true);
   };
 
   const closeWithoutChanges = () => {
-    setShowModal(false);
-  }
+    stateSetter(null, false);
+  };
 
   const handleLogout = (): void => {
     localStorage.removeItem(APP_TOKEN);
     dispatch(logout());
   };
 
+  const inputsProps: IInputProp[] = [
+    {
+      placeholder: "Фамилия",
+      inputvalue: firstName,
+      onChange(value: string): void {
+        setFirstName(value);
+      },
+      type: "text",
+    },
+    {
+      placeholder: "Имя",
+      inputvalue: lastName,
+      onChange(value: string): void {
+        setLastName(value);
+      },
+      type: "text",
+    },
+    {
+      placeholder: "Телефон в формате: х-ххх-ххх-хх-хх",
+      inputvalue: phoneNumber,
+      onChange(value: string): void {
+        setPhoneNumber(value);
+      },
+      type: "tel",
+      pattern: "[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}",
+    },
+    {
+      placeholder: "Адрес",
+      inputvalue: adress,
+      onChange(value: string): void {
+        setAdress(value);
+      },
+      type: "text",
+    },
+  ];
+
   return (
     <div className={cx("user-container")}>
       <div className={cx("user-name")}>{user.name}</div>
       <div className={cx("header")}>
         <div className={cx("contacts-header")}>Контакты:</div>
+        <input
+          type="text"
+          className={cx("search")}
+          placeholder="поиск"
+          value={searchField}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchField(event.target.value);
+          }}
+        />
         <Link to="/" onClick={handleLogout} className={cx("logout")}>
           logout
         </Link>
       </div>
-      <InputsFormik onSubmit={addContact} />
+      <form
+        action=""
+        onSubmit={(e) => {
+          e.preventDefault();
+          addContact();
+        }}
+      >
+        <Inputs
+          inputsProps={inputsProps}
+          inputsClassName="row"
+          btnClassName={"save"}
+          btn
+          isModalOpen={showModal}
+        />
+      </form>
       <div className={cx("contacts-list")}>
         {listContacts.map((item: Contact, index) => (
           <div className={cx("list", { back: index % 2 === 0 })} key={index}>
@@ -133,14 +215,14 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
             <div className={cx("list-item")}>{item.adress}</div>
             <div className={cx("list-btns")}>
               <Button
-                className={cx("delete")}
+                btnClassName={cx("delete")}
                 onClick={() => deleteContact(item, index)}
               >
                 delete
               </Button>
               <Button
-                className={cx("update")}
-                onClick={() => updateContact(item, index)}
+                btnClassName={cx("update")}
+                onClick={() => openModalWindow(item, index)}
               >
                 update
               </Button>
@@ -150,12 +232,21 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
       </div>
       <div className="">
         {showModal && (
-          <ModalWindow closeModalSubmit={closeUpdateContacts} closeModalEscape={closeWithoutChanges} btnEscapeChild={'Отмена'} btnSubmitChild={'Сохранить'}>
-             <Input></Input>
-            <Input></Input>
-            <Input></Input>
-            <Input></Input>
-          </ModalWindow>
+          <form
+            action=""
+            onSubmit={(e) => {
+              e.preventDefault();
+              addChangedContact();
+            }}
+          >
+            <ModalWindow
+              closeModalEscape={closeWithoutChanges}
+              btnEscapeChild={"Отмена"}
+              btnSubmitChild={"Сохранить"}
+            >
+              <Inputs inputsProps={inputsProps} inputsClassName="columun" />
+            </ModalWindow>
+          </form>
         )}
       </div>
     </div>

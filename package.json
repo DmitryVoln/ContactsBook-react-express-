@@ -15,7 +15,6 @@
     "@types/react-redux": "^7.1.24",
     "classnames": "^2.3.1",
     "esm": "^3.2.25",
-    "formik": "^2.2.9",
     "jsonwebtoken": "^8.5.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -25,9 +24,7 @@
     "react-scripts": "5.0.1",
     "router-dom": "^2.2.9",
     "sass": "^1.51.0",
-    "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4",
-    "yup": "^0.32.11"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "dev": "concurrently \"npm run express-server\" \"npm run start\"",

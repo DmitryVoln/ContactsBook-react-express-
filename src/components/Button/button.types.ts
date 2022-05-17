@@ -3,5 +3,5 @@ export interface IButton {
   children: string | number | React.ReactNode;
   type: "button" | "submit" | "reset";
   disabled: boolean;
-  className: string;
+  btnClassName: string;
 }

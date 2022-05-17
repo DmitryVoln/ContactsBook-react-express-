@@ -10,14 +10,14 @@ function Button({
   children,
   type,
   disabled,
-  className,
+  btnClassName,
   ...rest
 }: IButton) {
   return (
     <button
       {...rest}
       onClick={onClick}
-      className={cx(`${className}`)}
+      className={cx(`${btnClassName}`)}
       type={type}
       disabled={disabled}
     >
@@ -29,7 +29,7 @@ function Button({
 Button.defaultProps = {
   type: 'button',
   disabled: false,
-  className: '',
+  btnClassName: '',
   onClick: () => {},
   children: []
 };

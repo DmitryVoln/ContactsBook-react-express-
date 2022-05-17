@@ -5,32 +5,31 @@ import { IInput } from "./input.types";
 
 const cx = classNames.bind(styles);
 
-const Input = ({ placeholder, onChange, inputValue, errorMessage, type, ...rest }: IInput) => {
-  console.log(errorMessage);
+const Input = ({
+  placeholder,
+  onChange,
+  inputValue,
+  errorMessage,
+  type,
+  isModalOpen,
+  ...rest
+}: IInput) => {
   return (
-    <div className={cx('input-container')}>
+    <div className={cx("input-container")}>
       <input
         {...rest}
         type={type}
         className={cx("input")}
         placeholder={placeholder}
-        value={inputValue}
-        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-          onChange(event.target.value)
-        }
+        value={isModalOpen ? "" : inputValue}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+          onChange(event.target.value);
+        }}
       />
-    {errorMessage && <div className={cx('error')}>{errorMessage}</div>}  
+      {errorMessage && <div className={cx("error")}>{errorMessage}</div>}
     </div>
   );
 };
-
-{
-  /* <div className={cx('container', containerWidth, boxSizing)}>
-{label && <label htmlFor={id}>{label}</label>}
-<input id={id} className={cx({ invalid: isInvalid || errorMessage })} type={type} {...rest} />
-{errorMessage && <div className={cx('error-container')}>{errorMessage}</div>}
-</div> */
-}
 
 Input.defaultProps = {
   type: "text",
@@ -39,6 +38,9 @@ Input.defaultProps = {
   placeholder: "",
   inputValue: "",
   onChange: () => {},
+  className: "",
+  isModalOpen: false,
+  pattern: null,
 };
 
 export default Input;

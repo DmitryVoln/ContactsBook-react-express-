@@ -25,7 +25,7 @@ const ModalWindow = ({
       <div className={cx("modal-window")}>
         <div className={cx("btn-block")}>
           <Button onClick={closeModalEscape}>{btnEscapeChild}</Button>
-          <Button onClick={closeModalSubmit}>{btnSubmitChild}</Button>
+          <Button type="submit">{btnSubmitChild}</Button>
         </div>
         <div className={cx("modal-children")}>{children}</div>
       </div>

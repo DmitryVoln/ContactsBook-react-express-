@@ -9,7 +9,8 @@ export interface IInput {
     | "radio"
     | "reset"
     | "submit"
-    | "text";
+    | "text"
+    | "tel";
   placeholder: string;
   inputValue: string;
   label?: string;
@@ -17,4 +18,6 @@ export interface IInput {
   errorMessage?: string | boolean;
   onChange(event: string): void;
   checked?: boolean;
+  isModalOpen: boolean;
+  pattern: string;
 }

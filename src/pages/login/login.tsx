@@ -31,9 +31,10 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div className={cx("fields")}>
           <Input
-            placeholder="Введите логин"
+            placeholder="Введите логин на латинице"
             inputValue={login}
             onChange={setLogin}
+            pattern="[^А-Яа-яЁё]+"
           />
           <Input
             placeholder="Введите пароль"
@@ -41,7 +42,7 @@ const Login = () => {
             inputValue={password}
             onChange={setPassword}
           />
-          <Button type="submit" className={'login'} children={"LogIn"} />
+          <Button type="submit" btnClassName={'login'} children={"LogIn"} />
         </div>
       </form>
     </div>

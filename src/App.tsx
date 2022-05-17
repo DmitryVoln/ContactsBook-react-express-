@@ -10,6 +10,7 @@ const App = () => {
   const { authData } = useAppSelector((state) => state.authReducer);
 
   useEffect(() => {
+    console.log(authData)
     localStorage.setItem(APP_TOKEN, authData.token);
   }, [authData]);
 

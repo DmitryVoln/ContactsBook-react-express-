@@ -56,7 +56,6 @@ export const requestCheckAuth = (payload: AuthData) => async (dispatch: AppDispa
           body: JSON.stringify(payload),
     });
     const responseJSON = await response.json();
-    console.log(responseJSON);
     dispatch(authSlice.actions.authFetchingSuccess(responseJSON))
   } catch (error) {
       if (error instanceof Error) {
