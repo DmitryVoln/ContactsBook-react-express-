@@ -21,9 +21,6 @@ const Login = () => {
       password,
     };
     dispatch(requestCheckAuth(payload));
-    // if (authData.userId && authData.token) {
-    //   onClick();
-    // }
   };
 
   return (

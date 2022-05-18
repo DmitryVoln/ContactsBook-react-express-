@@ -33,7 +33,7 @@ const Inputs = ({
 }: IInputs) => {
   return (
     <div className={cx(`inputs-${inputsClassName}`)}>
-      {inputsProps.map(({ placeholder, inputvalue, onChange, pattern, type }: IInputProp) => (
+      {inputsProps.map(({ placeholder, inputvalue, onChange, pattern, type }: IInputProp, index) => (
         <Input
           placeholder={placeholder}
           inputValue={inputvalue}
@@ -41,6 +41,7 @@ const Inputs = ({
           isModalOpen={isModalOpen}
           type={type}
           pattern={pattern}
+          key={index}
         />
       ))}
 

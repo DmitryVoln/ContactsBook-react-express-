@@ -1,9 +1,6 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { v4 as uuidv4 } from "uuid";
-import { UserContactsComponent } from "../../interfaces/userContactsComponent";
-import Input from "../../components/input/input";
 import Button from "components/button/button";
 import ModalWindow from "components/modalWindow/modalWindow";
 import Inputs from "./inputs/inputs";
@@ -17,12 +14,13 @@ import {
 } from "redux/reducers/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { logout } from "redux/reducers/authSlice";
+import { filterer } from "utils/filterer";
 
-import { APP_TOKEN } from "constants/authConstants";
+import { APP_TOKEN, USER_ID } from "constants/authConstants";
 
 const cx = classNames.bind(styles);
 
-export const UserContacts = ({ userId }: UserContactsComponent) => {
+export const UserContacts = () => {
   const [listContacts, setListContacts] = useState<Contact[]>([]);
   const [id, setId] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
@@ -48,39 +46,17 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
   const { user } = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
   useEffect(() => {
+    const userId = Number(localStorage.getItem(USER_ID));
     dispatch(requestContacts(userId));
-  }, [dispatch, userId]);
-
-  const filterFunc = ({
-    firstName,
-    lastName,
-    adress,
-    phoneNumber,
-  }: Contact) => {
-    if (firstName) {
-      if (firstName.toLowerCase().includes(searchField.toLowerCase()))
-        return true;
-    }
-    if (lastName) {
-      if (lastName.toLowerCase().includes(searchField.toLowerCase()))
-        return true;
-    }
-    if (adress) {
-      if (adress.toLowerCase().includes(searchField.toLowerCase())) return true;
-    }
-    if (phoneNumber) {
-      if (phoneNumber.includes(searchField)) return true;
-    }
-    return false;
-  };
+  }, [dispatch]);
 
   useEffect(() => {
-    console.log(user, 'here');
     if (searchField) {
-      setListContacts(user.contacts.filter(filterFunc));
+      setListContacts(user.contacts.filter(filterer(searchField)));
     } else {
       setListContacts(user.contacts);
     }
+    // eslint-disable-next-line
   }, [user, searchField]);
 
   useEffect(() => {}, [showModal]);
@@ -90,13 +66,13 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
       id: String(Date.now()),
       firstName: firstName,
       lastName: lastName,
-      phoneNumber: `+${phoneNumber}`,
+      phoneNumber: phoneNumber,
       adress: adress,
     };
     const contacts = [...user.contacts, payload];
     stateSetter(null, false);
     await dispatch(requestAddContact({ ...user, contacts }));
-    await dispatch(requestContacts(userId));
+    await dispatch(requestContacts(user.id));
   };
 
   const addChangedContact = async (): Promise<void> => {
@@ -104,7 +80,7 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
       id: id,
       firstName: firstName,
       lastName: lastName,
-      phoneNumber: `+${phoneNumber}`,
+      phoneNumber: phoneNumber,
       adress: adress,
     };
     const contacts = [...user.contacts].map((contact) =>
@@ -113,7 +89,7 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
     setShowModal(false);
     stateSetter(null, false);
     await dispatch(requestAddContact({ ...user, contacts }));
-    await dispatch(requestContacts(userId));
+    await dispatch(requestContacts(user.id));
   };
 
   const deleteContact = async (payload: Contact, index: number) => {
@@ -121,7 +97,7 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
     contacts.splice(index, 1);
     await setListContacts(contacts);
     await dispatch(requestAddContact({ ...user, contacts }));
-    await dispatch(requestContacts(userId));
+    await dispatch(requestContacts(user.id));
   };
 
   const openModalWindow = async (item: Contact, index: number) => {
@@ -155,13 +131,13 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
       type: "text",
     },
     {
-      placeholder: "Телефон в формате: х-ххх-ххх-хх-хх",
+      placeholder: "телефон в формате: +х-ххх-ххх-хх-хх",
       inputvalue: phoneNumber,
       onChange(value: string): void {
         setPhoneNumber(value);
       },
       type: "tel",
-      pattern: "[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}",
+      pattern: "\\+[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}",
     },
     {
       placeholder: "Адрес",
@@ -206,6 +182,13 @@ export const UserContacts = ({ userId }: UserContactsComponent) => {
           isModalOpen={showModal}
         />
       </form>
+      <div className={cx("list")}>
+        <div className={cx("list-item")}>Фамилия</div>
+        <div className={cx("list-item")}>Имя</div>
+        <div className={cx("list-item")}>Телефон</div>
+        <div className={cx("list-item")}>Адрес</div>
+        <div className={cx("list-btns")}></div>
+      </div>
       <div className={cx("contacts-list")}>
         {listContacts.map((item: Contact, index) => (
           <div className={cx("list", { back: index % 2 === 0 })} key={index}>

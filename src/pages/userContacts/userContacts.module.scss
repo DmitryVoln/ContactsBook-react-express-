@@ -40,7 +40,11 @@
   margin-left: 0;
   padding: 0;
   align-items: center;
-
+  &-header {
+    display: flex;
+    width: 800px;
+    justify-content: space-between;
+  }
 }
 
 .list-item {
@@ -71,4 +75,9 @@
 .checkbox {
   width: 20px;
   height: 20px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
 }

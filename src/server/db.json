@@ -7,25 +7,39 @@
       "password": "123",
       "contacts": [
         {
-          "id": "7b62040a-7efc-4d68-be98-06d2d0dca869",
-          "firstName": "qwq",
-          "lastName": "qwqw",
-          "phoneNumber": "+79213333333",
-          "adress": ""
+          "id": "1652821231393",
+          "firstName": "Петренко",
+          "lastName": "Мухомор",
+          "phoneNumber": "+7-921-222-22-22",
+          "adress": "адрес"
         },
         {
-          "id": "c47aa21e-a8c9-4e22-8ecc-b13cc2e7e664",
-          "firstName": "qwq",
-          "lastName": "qwqw",
-          "phoneNumber": "+79213333333",
-          "adress": ""
+          "id": "1652821328576",
+          "firstName": "Федосеев",
+          "lastName": "Федосий",
+          "phoneNumber": "+7-921-777-88-99",
+          "adress": "Тамбываловская"
         },
         {
-          "id": "9e756dad-0c65-4000-bb98-5dd2342904dd",
-          "firstName": "sdfsdf",
-          "lastName": "sdfds",
-          "phoneNumber": "+79213600000",
-          "adress": ""
+          "id": "1652821353808",
+          "firstName": "Васин",
+          "lastName": "Евич",
+          "phoneNumber": "+7-921-777-77-77",
+          "adress": "Евстиголова гора"
+        },
+        {
+          "id": "1652858513436",
+          "firstName": "Тромбовский",
+          "lastName": "Юлий",
+          "phoneNumber": "+7-911-555-33-11",
+          "adress": "разный"
+        },
+        {
+          "id": "1652858551789",
+          "firstName": "Киряха",
+          "lastName": "Пор",
+          "phoneNumber": "+7-901-888-66-79",
+          "adress": "Кудалово"
         }
       ]
     },
