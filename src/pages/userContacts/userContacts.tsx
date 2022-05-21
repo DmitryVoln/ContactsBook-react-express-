@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "components/button/button";
+import Button from "components/button/button"
 import ModalWindow from "components/modalWindow/modalWindow";
 import Inputs from "./inputs/inputs";
 import { IInputProp } from "./inputs/inputs";
@@ -43,6 +43,7 @@ export const UserContacts = () => {
   };
 
   const { user } = useAppSelector((state) => state.userReducer);
+  console.log(user);
   const dispatch = useAppDispatch();
   useEffect(() => {
     const userId = Number(localStorage.getItem(USER_ID));

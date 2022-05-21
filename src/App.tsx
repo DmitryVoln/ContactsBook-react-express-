@@ -11,6 +11,7 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem(APP_TOKEN);
+    console.log(token);
     if (!token) {
       localStorage.setItem(APP_TOKEN, authData.token);
       localStorage.setItem(USER_ID, String(authData.userId));

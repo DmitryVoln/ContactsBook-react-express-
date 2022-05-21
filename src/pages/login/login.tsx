@@ -4,9 +4,8 @@ import styles from "./login.module.scss";
 import { useAppDispatch } from "../../hooks/redux";
 import {
   requestAddUser,
-  requestCheckAuth,
-} from "redux/reducers/actionCreators";
-import Button from "../../components/button/button";
+  requestCheckAuth } from "../../redux/reducers/actionCreators"
+import Button from "components/button/button";
 import Input from "../../components/input/input";
 import ModalWindow from "components/modalWindow/modalWindow";
 import { BASE_URL } from "redux/constants";
@@ -36,6 +35,7 @@ const Login = () => {
   };
 
   const openWindow = (): void => {
+    stateSetter();
     setModalWindow(true);
   };
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { APP_TOKEN } from "constants/authConstants";
 
 export interface AuthState {
   authData: { userId: number; token: string };
@@ -33,6 +34,7 @@ export const authSlice = createSlice({
       state.error = action.payload;
     },
     logout() {
+      localStorage.removeItem(APP_TOKEN);
       return initialState;
     },
   },

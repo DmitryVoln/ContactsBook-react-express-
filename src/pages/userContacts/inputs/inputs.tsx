@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 import Input from "components/input/input";
 import Button from "components/button/button";
 
-import { IInput } from "components/input/input.types";
+import { IInput } from 'components/input/input.types';
 
 import styles from "./inputs.module.scss";
 
