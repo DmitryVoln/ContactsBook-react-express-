@@ -1,4 +1,4 @@
-import { ContactsState } from "interfaces/contacts";
+import { ContactsState } from "pages/userContacts/user.types";
 import { User } from "pages/userContacts/user.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

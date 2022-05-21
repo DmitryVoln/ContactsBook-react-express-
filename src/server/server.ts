@@ -33,14 +33,17 @@ const isLoginExist = (req: Request, db: User[]) => {
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
-
 server.post("/auth", (req: Request, res: Response, next: NextFunction) => {
-  const authorizedUser = authorizedChekker(req, db.users);
-  if (authorizedUser) {
-    const token = jwt.sign(authorizedUser.login, "shjgsdgf");
-    return res.status(200).json({ userId: authorizedUser.id, token });
-  } else {
-    return res.status(401).json({ message: "NOT AUTORIZED" });
+  try {
+    const authorizedUser = authorizedChekker(req, db.users);
+    if (authorizedUser) {
+      const token = jwt.sign(authorizedUser.login, "shjgsdgf");
+      return res.status(200).json({ userId: authorizedUser.id, token });
+    } else {
+      return res.status(401).json({ message: "NOT AUTORIZED" });
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 server.get("/new/:login", (req: Request, res: Response, next: NextFunction) => {

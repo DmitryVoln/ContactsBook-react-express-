@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import Button from "components/button/button";
 import ModalWindow from "components/modalWindow/modalWindow";
 import Inputs from "./inputs/inputs";
 import { IInputProp } from "./inputs/inputs";
-import { Contact } from "interfaces/contacts";
+import { Contact } from "./user.types";
 import classNames from "classnames/bind";
 import styles from "./userContacts.module.scss";
 import {

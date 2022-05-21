@@ -1,4 +1,4 @@
-import { Contact } from "interfaces/contacts";
+import { Contact } from "pages/userContacts/user.types";
 
 export const filterer = (searchField: string) => ({
     firstName,

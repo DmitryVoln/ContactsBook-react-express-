@@ -2,7 +2,7 @@ import { AppDispatch } from "redux/store";
 import { contactsSlice } from "./contactsSlice";
 import { authSlice } from "./authSlice";
 import { User } from "pages/userContacts/user.types";
-import { AuthData } from "interfaces/auth";
+import { AuthData } from "./slices.types";
 import { BASE_URL } from "redux/constants";
 import { createUserSlice } from "./createUserSlice";
 import { newUser } from "pages/login/login.types";

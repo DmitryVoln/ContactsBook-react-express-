@@ -1,5 +1,11 @@
-import { AuthState } from "interfaces/auth";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+export interface AuthState {
+  authData: { userId: number; token: string };
+  isLoadind: boolean;
+  error: string;
+}
+
 
 const initialState: AuthState = {
   authData: {

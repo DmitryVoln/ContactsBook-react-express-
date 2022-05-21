@@ -1,6 +1,17 @@
 import { User } from "../../pages/userContacts/user.types";
 import { newUser } from "pages/login/login.types";
 
+// export interface AuthData {
+//   login: string;
+//   password: string;
+// }
+
+// export interface AuthState {
+//   authData: { userId: number; token: string };
+//   isLoadind: boolean;
+//   error: string;
+// }
+
 export interface AuthData {
   login: string;
   password: string;
