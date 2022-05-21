@@ -14,6 +14,7 @@ export interface IInputProp {
   onChange(value: string): void;
   type: IInput["type"];
   pattern?: string;
+  isRequired?: boolean;
 }
 
 export interface IInputs {
@@ -22,6 +23,7 @@ export interface IInputs {
   btnClassName: string;
   btn: boolean;
   isModalOpen: boolean;
+  errorMessage: string;
 }
 
 const Inputs = ({
@@ -30,10 +32,11 @@ const Inputs = ({
   btnClassName,
   btn,
   isModalOpen,
+  errorMessage
 }: IInputs) => {
   return (
     <div className={cx(`inputs-${inputsClassName}`)}>
-      {inputsProps.map(({ placeholder, inputvalue, onChange, pattern, type }: IInputProp, index) => (
+      {inputsProps.map(({ placeholder, inputvalue, onChange, pattern, type, isRequired }: IInputProp, index) => (
         <Input
           placeholder={placeholder}
           inputValue={inputvalue}
@@ -42,6 +45,8 @@ const Inputs = ({
           type={type}
           pattern={pattern}
           key={index}
+          isRequired={isRequired}
+          errorMessage={errorMessage}
         />
       ))}
 
@@ -60,6 +65,8 @@ Inputs.defaultProps = {
   btn: false,
   isModalOpen: false,
   btnClassName: "",
+  required: false,
+  errorMessage: ""
 };
 
 export default Inputs;

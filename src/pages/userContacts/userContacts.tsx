@@ -70,6 +70,7 @@ export const UserContacts = () => {
       adress: adress,
     };
     const contacts = [...user.contacts, payload];
+    console.log(contacts)
     stateSetter(null, false);
     await dispatch(requestAddContact({ ...user, contacts }));
     await dispatch(requestContacts(user.id));
@@ -115,7 +116,7 @@ export const UserContacts = () => {
 
   const inputsProps: IInputProp[] = [
     {
-      placeholder: "Фамилия",
+      placeholder: "Имя",
       inputvalue: firstName,
       onChange(value: string): void {
         setFirstName(value);
@@ -123,7 +124,7 @@ export const UserContacts = () => {
       type: "text",
     },
     {
-      placeholder: "Имя",
+      placeholder: "Фамилия",
       inputvalue: lastName,
       onChange(value: string): void {
         setLastName(value);
@@ -131,13 +132,13 @@ export const UserContacts = () => {
       type: "text",
     },
     {
-      placeholder: "телефон в формате: +х-ххх-ххх-хх-хх",
+      placeholder: "телефон (только цифры)",
       inputvalue: phoneNumber,
       onChange(value: string): void {
         setPhoneNumber(value);
       },
       type: "tel",
-      pattern: "\\+[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}",
+      pattern: "[0-9]+$",
     },
     {
       placeholder: "Адрес",
@@ -183,8 +184,8 @@ export const UserContacts = () => {
         />
       </form>
       <div className={cx("list")}>
-        <div className={cx("list-item")}>Фамилия</div>
         <div className={cx("list-item")}>Имя</div>
+        <div className={cx("list-item")}>Фамилия</div>
         <div className={cx("list-item")}>Телефон</div>
         <div className={cx("list-item")}>Адрес</div>
         <div className={cx("list-btns")}></div>

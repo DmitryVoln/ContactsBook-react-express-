@@ -12,6 +12,7 @@ const Input = ({
   errorMessage,
   type,
   isModalOpen,
+  isRequired,
   ...rest
 }: IInput) => {
   return (
@@ -25,6 +26,7 @@ const Input = ({
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           onChange(event.target.value);
         }}
+        required={isRequired}
       />
       {errorMessage && <div className={cx("error")}>{errorMessage}</div>}
     </div>
@@ -41,6 +43,7 @@ Input.defaultProps = {
   className: "",
   isModalOpen: false,
   pattern: null,
+  isRequired: false,
 };
 
 export default Input;

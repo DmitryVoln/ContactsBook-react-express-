@@ -20,4 +20,5 @@ export interface IInput {
   checked?: boolean;
   isModalOpen: boolean;
   pattern: string;
+  isRequired: boolean;
 }

@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from "../pages/userContacts/user.types";
 
 export interface Contact {
     id: string;
